@@ -4,7 +4,7 @@ Reported upstream as [ServiceNow/sdk discussion #153](https://github.com/Service
 
 ## Summary
 
-This is a small, **local-only** reproduction of a packaging condition in `@servicenow/sdk` 4.14.0. It uses synthetic XML and the public SDK API directly. No other CLI, credentials, instance connection, deployment, or build-output rewriting is involved.
+This is a small, **local-only** reproduction of a packaging condition in `@servicenow/sdk` 4.14.0. It uses synthetic XML and the public SDK API directly. Verification uses no credentials, instance connection, deployment, or build-output rewriting.
 
 After a positive baseline establishes known identities, the SDK transforms collection tombstones for:
 
