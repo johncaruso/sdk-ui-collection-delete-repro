@@ -1,5 +1,7 @@
 # ServiceNow SDK UI Collection Delete Repro
 
+Reported upstream as [ServiceNow/sdk discussion #153](https://github.com/ServiceNow/sdk/discussions/153).
+
 ## Summary
 
 This is a small, **local-only** reproduction of a packaging condition in `@servicenow/sdk` 4.14.0. It uses synthetic XML and the public SDK API directly. No other CLI, credentials, instance connection, deployment, or build-output rewriting is involved.
