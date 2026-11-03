@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+  <sys_ui_list action="DELETE" table="x_repro_ui_delete_probe" view="" parent="" relationship="" sys_domain="global">
+    <sys_ui_list_element action="INSERT_OR_UPDATE">
+      <sys_id>44444444444444444444444444444444</sys_id>
+      <list_id>33333333333333333333333333333333</list_id>
+      <element>name</element>
+      <position>0</position>
+    </sys_ui_list_element>
+    <sys_ui_list action="INSERT_OR_UPDATE">
+      <sys_id>33333333333333333333333333333333</sys_id>
+      <sys_scope>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</sys_scope>
+      <sys_package>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</sys_package>
+      <name>x_repro_ui_delete_probe</name>
+      <view>Default view</view>
+      <sys_domain>global</sys_domain>
+    </sys_ui_list>
+  </sys_ui_list>
+</record_update>

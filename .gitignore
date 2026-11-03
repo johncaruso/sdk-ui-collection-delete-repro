@@ -1,0 +1,11 @@
+/node_modules/
+/metadata/
+/src/fluent/generated/
+/dist/
+/target/
+/results/
+/.now/
+/.snowcoder/
+.env*
+*.log
+.DS_Store

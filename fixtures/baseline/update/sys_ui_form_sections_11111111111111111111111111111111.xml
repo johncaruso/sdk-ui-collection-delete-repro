@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+  <sys_ui_form_sections action="INSERT_OR_UPDATE" form_id="11111111111111111111111111111111" table="x_repro_ui_delete_probe" sys_domain="global">
+    <sys_ui_form_section action="INSERT_OR_UPDATE">
+      <sys_id>22222222222222222222222222222222</sys_id>
+      <sys_ui_form>11111111111111111111111111111111</sys_ui_form>
+      <sys_ui_section>66666666666666666666666666666666</sys_ui_section>
+      <position>0</position>
+    </sys_ui_form_section>
+    <sys_ui_form action="INSERT_OR_UPDATE">
+      <sys_id>11111111111111111111111111111111</sys_id>
+      <sys_scope>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</sys_scope>
+      <sys_package>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</sys_package>
+      <name>x_repro_ui_delete_probe</name>
+      <view name="repro_collection">77777777777777777777777777777777</view>
+      <sys_domain>global</sys_domain>
+    </sys_ui_form>
+  </sys_ui_form_sections>
+</record_update>

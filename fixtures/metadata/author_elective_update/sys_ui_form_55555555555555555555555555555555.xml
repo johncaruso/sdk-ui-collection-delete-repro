@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_form">
+  <sys_ui_form action="DELETE">
+    <sys_id>55555555555555555555555555555555</sys_id>
+    <sys_scope>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</sys_scope>
+    <sys_package>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</sys_package>
+    <name>x_repro_ui_delete_control</name>
+  </sys_ui_form>
+</record_update>
