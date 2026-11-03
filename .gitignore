@@ -5,7 +5,6 @@
 /target/
 /results/
 /.now/
-/.snowcoder/
 .env*
 *.log
 .DS_Store
