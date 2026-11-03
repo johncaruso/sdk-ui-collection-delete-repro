@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Local-only reproduction of UI collection DELETE payload preservation in ServiceNow SDK",
+  "description": "Local-only inspection of UI collection tombstone payload structure in ServiceNow SDK",
   "engines": { "node": ">=24" },
   "scripts": {
     "transform": "node scripts/transform.mjs",

@@ -37,14 +37,10 @@ const observations = fixtureFiles.map(name => {
     sourceMetadataUnchanged: true, packedXmlUnchanged: unchanged, retainedInnerUpserts }
 })
 assertOffline()
-const reproduced = observations.filter(row => row.collection).every(row => row.packedXmlUnchanged && row.retainedInnerUpserts)
+assert.ok(observations.filter(row => row.collection).every(row => row.packedXmlUnchanged && row.retainedInnerUpserts),
+  'Collection payload structure changed; inspect the SDK output')
 writeJson('results/assertion.json', { sdkVersion: '4.14.0', parsedAndKeyRecordsDeleted: true,
-  packagingConditionReproduced: reproduced, networkAttempts: 0, observations,
-  limitation: 'This local packaging check does not establish live importer behavior or platform fix status.' })
-if (reproduced) {
-  console.error('PACKAGING_CONDITION_REPRODUCED: SDK records and keys are deleted, but both collection payloads retain their original inner INSERT_OR_UPDATE bytes in the ZIP. Ordinary DELETE control stays DELETE.')
-  console.error('Local packaging evidence only; this does not prove form/list recreation or determine platform fix status.')
-  process.exitCode = 1
-} else {
-  console.log('PACKAGING_CONDITION_NOT_REPRODUCED: serialization differs; inspect results/assertion.json and qualify deletion behavior on a disposable instance.')
-}
+  payloadStructureObserved: true, networkAttempts: 0, observations,
+  limitation: 'Payload structure alone is not a defect and does not establish live importer behavior or platform fix status.' })
+console.log('PAYLOAD_STRUCTURE_OBSERVED: SDK records and keys are deleted; both collection payloads preserve their original inner INSERT_OR_UPDATE bytes in the ZIP. Ordinary DELETE control stays DELETE.')
+console.log('Structure inspection only; retained inner data is not itself a defect. Runtime form recreation requires a separate live check.')

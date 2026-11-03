@@ -1,19 +1,21 @@
-# ServiceNow SDK UI Collection Delete Repro
+# ServiceNow SDK UI Collection Tombstone Payload Inspection
 
 Reported upstream as [ServiceNow/sdk discussion #153](https://github.com/ServiceNow/sdk/discussions/153).
 
 ## Summary
 
-This is a small, **local-only** reproduction of a packaging condition in `@servicenow/sdk` 4.14.0. It uses synthetic XML and the public SDK API directly. Verification uses no credentials, instance connection, deployment, or build-output rewriting.
+This is a small, **local-only payload structure inspection** for `@servicenow/sdk` 4.14.0. It uses synthetic XML and the public SDK API directly. Verification uses no credentials, instance connection, deployment, or build-output rewriting.
 
 After a positive baseline establishes known identities, the SDK transforms collection tombstones for:
 
 - A form and its `sys_ui_form_section` join, inside `sys_ui_form_sections action="DELETE"`.
 - A default/null-view list and its element, inside `sys_ui_list action="DELETE"`.
 
-The SDK parser and generated keys mark the parent and child records deleted. However, build and pack preserve the original collection XML byte for byte, including the inner `INSERT_OR_UPDATE` actions. An ordinary parent `sys_ui_form action="DELETE"` is included as a control and stays an ordinary delete.
+The SDK parser and generated keys mark the parent and child records deleted. Build and pack preserve the original collection XML byte for byte, including the inner `INSERT_OR_UPDATE` actions. An ordinary parent `sys_ui_form action="DELETE"` is included as a control and stays an ordinary delete.
 
-This demonstrates a difference between the SDK's parsed deletion state and its emitted payload shape. **It does not by itself establish how a platform importer will process that shape, prove form/list recreation, or determine whether a platform release fixes the behavior.** In particular, list recreation is not claimed. Deletion semantics may be honored by an importer without changing the outer-delete/inner-upsert shape.
+**Retained inner upsert data alone is not a defect.** This inspection records the payload structure without making a claim about why that data is retained or how an importer will process it. Deletion semantics may be honored without changing the outer-delete/inner-upsert shape.
+
+The runtime defect in the linked upstream report was verified separately: a form (`sys_ui_form`) and its form-section link (`sys_ui_form_section`) were absent after platform deletion, then returned after SDK installation. The existing section (`sys_ui_section`) and section element (`sys_ui_element`) remained present and unchanged throughout. This local inspection does not perform that live check, establish whether the SDK or platform owns the defect, or determine platform fix status. List recreation is not claimed.
 
 ## Environment
 
@@ -24,7 +26,7 @@ This demonstrates a difference between the SDK's parsed deletion state and its e
 
 `package-lock.json` pins the resolved dependency tree. The unmodified SDK dependency install reported 24 vulnerabilities: 14 moderate and 10 high. No dependency overrides or automatic audit fixes were applied to this reproduction.
 
-## Repro Steps
+## Local Inspection Steps
 
 ```sh
 npm install
@@ -45,20 +47,20 @@ npm run assert
 2. `build` invokes public SDK build, pack, and unpack APIs. It does not edit any emitted XML or ZIP entry.
 3. `assert` checks all five parsed records and keys are deleted, source metadata and packed bytes, and the ordinary-delete control. Details are written under ignored `results/`.
 
-**On SDK 4.14.0, `npm run verify` intentionally exits 1** after successful transform and build, with:
+**On SDK 4.14.0, `npm run verify` exits 0** when the observed payload structure and controls match, with:
 
 ```text
-PACKAGING_CONDITION_REPRODUCED: SDK records and keys are deleted, but both collection payloads retain their original inner INSERT_OR_UPDATE bytes in the ZIP. Ordinary DELETE control stays DELETE.
-Local packaging evidence only; this does not prove form/list recreation or determine platform fix status.
+PAYLOAD_STRUCTURE_OBSERVED: SDK records and keys are deleted; both collection payloads preserve their original inner INSERT_OR_UPDATE bytes in the ZIP. Ordinary DELETE control stays DELETE.
+Structure inspection only; retained inner data is not itself a defect. Runtime form recreation requires a separate live check.
 ```
 
-An unrelated setup/build/assertion failure has a separate error and must not be counted as a reproduction. `verification.txt` records the observed run. If the checked serialization condition changes, the script reports `PACKAGING_CONDITION_NOT_REPRODUCED`; that still requires review and live qualification, and is not a declaration that the platform issue is fixed.
+A setup/build error or an unexpected record, key, payload, or control result still fails verification. Such a failure means the inspection did not match its expected observations; it is not proof of a runtime defect. `verification.txt` records the successful run. Neither success nor failure declares the platform issue fixed.
 
 ## Expected Behavior
 
-Deleting a form or list should preserve its intended deletion semantics through a supported export → SDK transform → build → pack → install roundtrip. The SDK's deletion state and the installer's interpretation need to agree. This reproduction does not prescribe rewriting every child action to `DELETE`, discarding export history, or any particular workaround.
+Deleting a form or list should preserve its intended deletion semantics through a supported export → SDK transform → build → pack → install roundtrip. A deleted form and join should remain absent after installation. This inspection does not prescribe rewriting every child action to `DELETE`, discarding export history, or any particular workaround.
 
-The emitted collection shape is the local condition to inspect. To establish recreation, a live test must first prove the original form/join existed, then prove they were deleted, and finally show them returning after installation. A successful install tracker or an absent-to-absent result is insufficient.
+To establish recreation, a live test must first prove the original form/join existed, then prove they were deleted, and finally show them returning after installation. A successful install tracker or an absent-to-absent result is insufficient to establish recreation.
 
 ## Fixtures and Local Evidence
 

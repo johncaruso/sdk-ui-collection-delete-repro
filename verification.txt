@@ -1,5 +1,5 @@
 Node v24.14.0; npm 11.9.0; macOS arm64; @servicenow/sdk 4.14.0
-Clean public-file copy: npm ci passed (exit 0), 482 packages installed.
+Dependency lock unchanged from the verified clean npm ci (482 packages installed).
 Install audit: 24 vulnerabilities (14 moderate, 10 high); no overrides or audit suppression.
 Command: npm run verify
 
@@ -21,7 +21,7 @@ BUILT_AND_PACKED: unchanged direct SDK output; see results/build.json
 > sdk-ui-collection-delete-repro@1.0.0 assert
 > node scripts/assert.mjs
 
-PACKAGING_CONDITION_REPRODUCED: SDK records and keys are deleted, but both collection payloads retain their original inner INSERT_OR_UPDATE bytes in the ZIP. Ordinary DELETE control stays DELETE.
-Local packaging evidence only; this does not prove form/list recreation or determine platform fix status.
+PAYLOAD_STRUCTURE_OBSERVED: SDK records and keys are deleted; both collection payloads preserve their original inner INSERT_OR_UPDATE bytes in the ZIP. Ordinary DELETE control stays DELETE.
+Structure inspection only; retained inner data is not itself a defect. Runtime form recreation requires a separate live check.
 
-Exit code: 1 (expected for PACKAGING_CONDITION_REPRODUCED)
+Exit code: 0
